@@ -1,16 +1,17 @@
-New-AdUser -Identity "991397949"
-New-AdUser -Identity "Ryan"
-New-AdUser -Identity "Brown"
+New-AdUser  -Identity 991397949
+New-AdUser  -Identity Ryan
+New-AdUser  -Identity Brown
 
-Remove-AdUser -Identity "991397949"
+Remove-AdUser  -Identity 991397949 
 
-Disable-LocalUser -Name" Ryan"
-Disable-LocalUser -Name "Brown"
+Disable-ADAccount  -Identity Ryan -PassThru 
+Disable-ADAccount -Identity  Brown -PassThru
 
-Enable-AdAccount -Identity "Ryan"
+Enable-ADAccount  -Identity Ryan -Confirm
 
-Get-LocalUser
 
-Get-AdUser -LDAPFilter '(!userAccountControl:1.2.840.113556.1.4.803:=2)'
+Get-ADUser -Filter * -Properties * | select-object name
 
-Get-AdUser -Filter {Enabled -wq "False"}
+Get-AdUser -Filter {Enabled -eq "False"} -Properties * | Select-Object name
+
+Get-AdUser -Filter {Enabled -eq "True"} -Properties * | Select-Object name 
